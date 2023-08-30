@@ -1,6 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
-const PROTO_PATH = __dirname + '/protos/helloworld.proto';
+const PROTO_PATH = __dirname + '/protos/category.proto';
 
 const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
@@ -13,13 +13,13 @@ const packageDefinition = protoLoader.loadSync(
   }
 );
 
-const Greater = grpc.loadPackageDefinition(packageDefinition).Greeter;
+const CategoryService = grpc.loadPackageDefinition(packageDefinition).CategoryService;
 
-const client = new Greater(
+const client = new CategoryService(
   "localhost:50051",
   grpc.credentials.createInsecure()
 );
 
-client.sayHello({}, function (err, response) {
-  console.log('Greeting:', response.message);
+client.createCategory({ name: "new_category_name" }, function (err, response) {
+  console.log(response);
 });

@@ -1,7 +1,7 @@
-const CategoriesController = require('../controllers/categoriesController');
-const CreateCategoryUsecase = require('../usecases/createCategoryUsecase');
-const CategoriesRepository = require('../infra/repositories/categoriesRepository');
-const UuidGenerator = require('../infra/uuidGenerator');
+const CategoriesController = require('../../presentation/controllers/categoriesController');
+const CreateCategoryUsecase = require('../../application/usecases/createCategoryUsecase');
+const CategoriesRepository = require('../../infra/repositories/categoriesRepository');
+const UuidGenerator = require('../../infra/helpers/uuidGenerator');
 
 function makeCategoriesController(db) {
   const categoriesRepository = new CategoriesRepository(db);

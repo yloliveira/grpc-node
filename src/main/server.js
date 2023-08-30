@@ -1,10 +1,10 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
-const CATEGORY_PROTO_PATH = __dirname + '/protos/category.proto';
-const DATABASE_FILE_NAME = __dirname + '/../data.db';
+const CATEGORY_PROTO_PATH = __dirname + '/../domain/protos/category.proto';
+const DATABASE_FILE_NAME = __dirname + '/../../data.db';
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(DATABASE_FILE_NAME);
-const makeCategoriesController = require('./factories/categoriesControllerFactory');
+const makeCategoriesController = require('../main/factories/categoriesControllerFactory');
 
 const categoryPackageDefinition = protoLoader.loadSync(
   CATEGORY_PROTO_PATH,

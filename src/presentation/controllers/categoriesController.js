@@ -5,6 +5,7 @@ class CategoriesController {
     this.createCategory = this.createCategory.bind(this);
     this.listCategories = this.listCategories.bind(this);
     this.createCategoryStream = this.createCategoryStream.bind(this);
+    this.createCategoryStreamBidirectional = this.createCategoryStreamBidirectional.bind(this);
   }
 
   async createCategory(call, callback) {
@@ -45,6 +46,22 @@ class CategoriesController {
       })
     } catch (error) {
       console.log('CategoriesController.createCategoryStream: Unexpected Error');
+    }
+  }
+
+  async createCategoryStreamBidirectional(call) {
+    try {
+      call.on('data', async (categoryStream) => {
+        const category = await this.createCategoryUsecase.execute({ name: categoryStream.name });
+        if (category !== null) {
+          call.write(category);
+        }
+      });
+      call.on('end', function () {
+        call.end();
+      })
+    } catch (error) {
+      console.log('CategoriesController.createCategoryStreamBidirectional: Unexpected Error');
     }
   }
 }

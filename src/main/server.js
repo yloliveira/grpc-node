@@ -25,7 +25,8 @@ const categoriesController = makeCategoriesController(db);
 server.addService(category_proto.CategoryService.service, {
   createCategory: categoriesController.createCategory,
   listCategories: categoriesController.listCategories,
-  createCategoryStream: categoriesController.createCategoryStream
+  createCategoryStream: categoriesController.createCategoryStream,
+  createCategoryStreamBidirectional: categoriesController.createCategoryStreamBidirectional
 });
 
 server.bindAsync('localhost:50051', grpc.ServerCredentials.createInsecure(), () => {

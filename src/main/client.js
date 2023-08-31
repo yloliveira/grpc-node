@@ -20,6 +20,10 @@ const client = new CategoryService(
   grpc.credentials.createInsecure()
 );
 
-client.createCategory({ name: "new_category_name" }, function (err, response) {
+// client.createCategory({ name: "new_category_name" }, function (err, response) {
+//   console.log(response);
+// });
+
+client.listCategories({}, function (err, response) {
   console.log(response);
 });

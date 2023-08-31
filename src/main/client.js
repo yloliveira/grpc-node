@@ -27,3 +27,14 @@ const client = new CategoryService(
 client.listCategories({}, function (err, response) {
   console.log(response);
 });
+
+// let call = client.createCategoryStream(function (error, response) {
+//   console.log(response);
+// });
+
+// let categoryNamesList = ["cat1", "cat2", "cat3"];
+// categoryNamesList.forEach(categoryName => {
+//   call.write({ name: categoryName });
+// })
+
+// call.end();

@@ -15,7 +15,13 @@ message ListCategoriesResponse {
   repeated Category categories = 1;
 }
 
+message CreateCategoryStreamResponse {
+  repeated Category categoriesCreated = 1;
+  repeated CreateCategoryRequest categoriesNotCreated = 2;
+}
+
 service CategoryService {
   rpc CreateCategory (CreateCategoryRequest) returns (Category){};
   rpc ListCategories (Empty) returns (ListCategoriesResponse){};
+  rpc CreateCategoryStream (stream CreateCategoryRequest) returns (CreateCategoryStreamResponse){};
 }

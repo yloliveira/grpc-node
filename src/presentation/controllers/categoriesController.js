@@ -4,6 +4,7 @@ class CategoriesController {
     this.listCategoriesUsecase = listCategoriesUsecase;
     this.createCategory = this.createCategory.bind(this);
     this.listCategories = this.listCategories.bind(this);
+    this.createCategoryStream = this.createCategoryStream.bind(this);
   }
 
   async createCategory(call, callback) {
@@ -21,6 +22,29 @@ class CategoriesController {
       callback(null, { categories });
     } catch (error) {
       console.log('CategoriesController.listCategories: Unexpected Error');
+    }
+  }
+
+  async createCategoryStream(call, callback) {
+    try {
+      let created = [];
+      let failed = [];
+      call.on('data', async (categoryStream) => {
+        const category = await this.createCategoryUsecase.execute({ name: categoryStream.name });
+        if (category !== null) {
+          created.push(category);
+        } else {
+          failed.push({ name: categoryStream.name })
+        }
+      });
+      call.on('end', function () {
+        callback(null, {
+          categoriesCreated: created,
+          categoriesNotCreated: failed,
+        })
+      })
+    } catch (error) {
+      console.log('CategoriesController.createCategoryStream: Unexpected Error');
     }
   }
 }
